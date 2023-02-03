@@ -1,0 +1,88 @@
+{{define "Index"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <title>Alura loja</title>
+</head>
+<nav class="navbar navbar-light bg-light mb-4">
+    <a class="navbar-brand" href="/">Alura Loja</a>
+</nav>
+
+<body>
+    <div class="container">
+        <section class="card">
+            <div>
+                <table class="table table-striped table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Descricao</th>
+                            <td>Preco</td>
+                            <td>Quantidade</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range .}}
+                        <tr>
+                            <td>{{.Nome}}</td>
+                            <td>{{.Descricao}}</td>
+                            <td>{{.Preco}}</td>
+                            <td>{{.Quantidade}}</td>
+                        </tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <form>
+            <label>Name: </label><br>
+            <input maxlength="24" id="nome_id"><br>
+            <label>Descricao: </label><br>
+            <input maxlength="24" id="descricao_id"><br>
+            <label>Preço: </label><br>
+            <input maxlength="24" id="preco_id"><br>
+            <label>Quantidade: </label><br>
+            <input maxlength="24" id="quantidade_id"><br>
+
+            <button onclick="criarProduto()">Click me</button>
+        </form> 
+        
+        <script>
+
+async function criarProduto() {
+
+    const nome = document.getElementById('nome_id').value //Recupera o valor do elemento HTML com id nome_id e atribui a ele na variável nome.
+    const descricao = document.getElementById('descricao_id').value //Recupera o valor do elemento HTML com id descricao_id e atribui a ele na variável descricao.
+    const preco = document.getElementById('preco_id').value //Recupera o valor do elemento HTML com id preco_id e atribui a ele na variável preco.
+    const quantidade = document.getElementById('quantidade_id').value //Recupera o valor do elemento HTML com id quantidade_id e atribui a ele na variável quantidade.
+
+    const produto = {nome, descricao, preco, quantidade}; //Cria uma constante chamada produto que é um objeto com as propriedades nome, descricao, preco, e quantidade.
+
+
+    await fetch('/create', { //Faz uma requisição HTTP do tipo POST para o endereço /create e espera até que a resposta seja recebida.
+    method: 'POST', //Especifica que a requisição é do tipo POST.
+    headers: { //Especifica que o tipo de conteúdo enviado na requisição é do tipo JSON.
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(produto) //Transforma o objeto produto em uma string JSON e o inclui no corpo da requisição HTTP.
+  }); //Fecha o objeto passado como segundo argumento para o método fetch.
+
+}
+
+
+        </script>
+
+    </div>
+</body>
+
+</html>
+{{end}}
