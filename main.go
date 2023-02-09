@@ -2,24 +2,12 @@ package main
 
 import (
 	"net/http"
-	"text/template"
 
-	"github.com/Hmigotto/goprofessor/models"
+	"github.com/Hmigotto/goprofessor/routes"
 )
 
-var temp = template.Must(template.ParseGlob("templates/*.html"))
-
 func main() {
-
-	http.HandleFunc("/", index)
-	http.HandleFunc("/create", models.Create)
+	routes.CarregaRotas()
 	http.ListenAndServe(":8000", nil)
 
-}
-
-func index(w http.ResponseWriter, r *http.Request) {
-
-	produtos := models.Display()
-
-	temp.ExecuteTemplate(w, "Index", produtos)
 }

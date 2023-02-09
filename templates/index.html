@@ -36,6 +36,12 @@
                             <td>{{.Descricao}}</td>
                             <td>{{.Preco}}</td>
                             <td>{{.Quantidade}}</td>
+                            <td>
+                                <form action="/delete" method="post">
+                                    <input type="hidden" name="nome" value="{{.Nome}}">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
                         </tr>
                         {{end}}
                     </tbody>
@@ -52,10 +58,17 @@
             <input maxlength="24" id="preco_id"><br>
             <label>Quantidade: </label><br>
             <input maxlength="24" id="quantidade_id"><br>
+            <br>
+            <button onclick="criarProduto()">Criar</button>
+            <br>
+            <br>
 
-            <button onclick="criarProduto()">Click me</button>
+            <div class="card-footer">
+                <a href="/update" class="btn btn-primary mb-2">Update</a>
+            </div>
+            
         </form> 
-        
+
         <script>
 
 async function criarProduto() {

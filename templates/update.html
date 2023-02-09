@@ -1,0 +1,69 @@
+{{define "Update"}}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <title>Alura loja</title>
+</head>
+<nav class="navbar navbar-light bg-light mb-4">
+    <a class="navbar-brand" href="/">Alura Loja</a>
+</nav>
+
+
+  <head>
+    <title>Update Product</title>
+  </head>
+  <body>
+    <div class="container">
+    <h1>Update Product</h1>
+    <form action="/update" method="post">
+      <label>Name: </label><br>
+      <input type="text" name="nome" required><br>
+      <label>Description: </label><br>
+      <input type="text" name="descricao" required><br>
+      <label>Price: </label><br>
+      <input type="text" name="preco" required><br>
+      <label>Quantity: </label><br>
+      <input type="text" name="quantidade" required><br>
+      <br>
+      <button onclick="atualizarProduto()">Criar</button>
+
+      <div class="card-footer">
+        <a href="/" class="btn btn-primary mb-2">Go Back</a>
+    </div>
+
+    </form>
+    <script>
+
+      async function atualizarProduto() {
+      
+          const nome = document.getElementById('nome_id').value //Recupera o valor do elemento HTML com id nome_id e atribui a ele na variável nome.
+          const descricao = document.getElementById('descricao_id').value //Recupera o valor do elemento HTML com id descricao_id e atribui a ele na variável descricao.
+          const preco = document.getElementById('preco_id').value //Recupera o valor do elemento HTML com id preco_id e atribui a ele na variável preco.
+          const quantidade = document.getElementById('quantidade_id').value //Recupera o valor do elemento HTML com id quantidade_id e atribui a ele na variável quantidade.
+      
+          const produto = {nome, descricao, preco, quantidade}; //Cria uma constante chamada produto que é um objeto com as propriedades nome, descricao, preco, e quantidade.
+      
+      
+          await fetch('/updateproduto', { //Faz uma requisição HTTP do tipo POST para o endereço /create e espera até que a resposta seja recebida.
+          method: 'POST', //Especifica que a requisição é do tipo POST.
+          headers: { //Especifica que o tipo de conteúdo enviado na requisição é do tipo JSON.
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(produto) //Transforma o objeto produto em uma string JSON e o inclui no corpo da requisição HTTP.
+        }); //Fecha o objeto passado como segundo argumento para o método fetch.
+      
+      }
+      
+      
+              </script>
+    </div>
+  </body>
+</html>
+{{end}}
